@@ -29,6 +29,7 @@
   ac-html
   multiple-cursors
   powerline
+  company-ghc
   ))
 
 (defun cfg:install-packages ()
@@ -46,6 +47,9 @@
 (global-linum-mode 1)
 ;; separate line numbers
 (setq linum-format "%4d \u2502")
+
+;; subword mode
+(global-subword-mode 1)
 
 ;;Enable Ruby mode for ruby files
 (add-to-list 'auto-mode-alist
@@ -108,6 +112,10 @@
 ;; Pair everything
 (autopair-global-mode 1)
 
+;; Company autocomplete for haskell
+(require 'company)
+(add-to-list 'company-backends 'company-ghc)
+(custom-set-variables '(company-ghc-show-info t))
 ;;Lisp hooks
 (add-hook 'clojure-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
@@ -118,6 +126,12 @@
 
 (setq nrepl-popup-stacktraces nil)
 (add-to-list 'same-window-buffer-names "<em>nrepl</em>")
+
+;;Haskell hooks
+(add-hook 'haskell-mode-hook (lambda () structured-haskell-mode t))
+(eval-after-load 'haskell-mode '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
+(add-hook 'haskell-mode-hook 'haskell-stylish-mode)
+(add-hook 'haskell-mode-hook 'company-mode)
 
 ;; General Auto-Complete
 (require 'auto-complete-config)
