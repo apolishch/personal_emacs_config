@@ -1,0 +1,8 @@
+(add-hook 'clojure-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'clojure-mode-hook 'paredit-mode)
+(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+(add-hook 'clojure-mode-hook (lambda () (autopair-global-mode -1)))
+(add-hook 'emasc-lisp-mode-hook (lambda () (autopair-global-mode -1)))
+(setq nrepl-popup-stacktraces nil)
+(add-to-list 'same-window-buffer-names "<em>nrepl</em>")
