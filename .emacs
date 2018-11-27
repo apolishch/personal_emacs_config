@@ -2,10 +2,12 @@
 (require 'cl)
   (setq cfg-var:packages '(
                           clj-refactor
+                          reason-mode
                           smartparens
                           idris-mode
 			  auctex
                           projectile
+                          flow-minor-mode
 			  projectile-rails
                           magit
 			  w3
@@ -36,6 +38,7 @@
 			  ac-inf-ruby
 			  ac-html-bootstrap
 			  ac-math
+                          neotree
 			  ac-html
 			  multiple-cursors
 			  powerline
@@ -154,7 +157,8 @@
  ;; Company autocomplete for haskell
  (require 'company)
  (add-to-list 'company-backends 'company-ghc)
-
+ (require 'neotree)
+ (add-hook 'after-init-hook #'neotree-toggle)
  ;;Lisp hooks
  (add-hook 'clojure-mode-hook 'eldoc-mode)
  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
@@ -163,14 +167,14 @@
  (add-hook 'clojure-mode-hook (lambda () (autopair-global-mode -1)))
  (add-hook 'emasc-lisp-mode-hook (lambda () (autopair-global-mode -1)))
  (add-hook 'clojure-mode-hook 'midje-mode) 
-
+ (add-hook 'js2-mode 'flow-minor-mode)
  (setq nrepl-popup-stacktraces nil)
  (add-to-list 'same-window-buffer-names "<em>nrepl</em>")
 
  ;;Haskell hooks
- (add-hook 'haskell-mode-hook (lambda () structured-haskell-mode t))
- (eval-after-load 'haskell-mode '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
- (add-hook 'haskell-mode-hook 'haskell-stylish-mode)
+ ;; (add-hook 'haskell-mode-hook (lambda () structured-haskell-mode t))
+ ;;(eval-after-load 'haskell-mode '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
+;; (add-hook 'haskell-mode-hook 'haskell-stylish-mode)
  (add-hook 'haskell-mode-hook 'company-mode)
 
  ;; General Auto-Complete
@@ -230,8 +234,6 @@
 
  ;;new
  (setq show-paren-style 'mixed)
- (set-face-background 'show-paren-match-face "#aaaaaa")
- (set-face-attribute 'show-paren-match-face nil :weight 'bold :underline nil :overline nil :slant 'normal)
  ;;new end
  (global-hl-line-mode 1)
  (winner-mode t)
@@ -299,6 +301,7 @@
 (require 'projectile)
 (setq projectile-indexing-method 'alien)
 (setq projectile-enable-caching t)
+(setq debug-on-error t)
 (projectile-global-mode)
 
 
